@@ -8,12 +8,16 @@ import { ListGetwaysComponent } from './list-getways/list-getways.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateGetwayComponent } from './create-getway/create-getway.component';
 import { FormsModule } from '@angular/forms';
+import { GetwayDetailsComponent } from './getway-details/getway-details.component';
+import { CreateDeviceComponent } from './create-device/create-device.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListGetwaysComponent,
-    CreateGetwayComponent
+    CreateGetwayComponent,
+    GetwayDetailsComponent,
+    CreateDeviceComponent
   ],
   imports: [
     BrowserModule,

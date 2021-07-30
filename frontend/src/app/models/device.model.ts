@@ -7,7 +7,7 @@ export class Device {
     public vendor: string,
     public status: status,
     public uid: string,
-    public createdAt: string,
+    public createdDate?: string,
   ) { }
 }
 
@@ -15,7 +15,7 @@ export class Device {
   providedIn: 'root'
 }) export class DeviceAdapter implements Adapter<Device> {
   adapt(item: any): Device {
-    return new Device(item.vendor, item.status, item.uid, item.createdAt);
+    return new Device(item.vendor, item.status, item.uid, item.createdDate);
   }
 }
 export enum status {
