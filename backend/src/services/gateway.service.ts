@@ -24,7 +24,7 @@ class GatewayService {
     return getway;
   }
   public async createGetWays(createGetwayDto: CreateGetwayDto) {
-    const getOneGetway: Getway = await this.getone(createGetwayDto.serial);
+    const getOneGetway: Getway = await this.getway.findOne({ serial: createGetwayDto.serial });
     if (getOneGetway) {
       throw new HttpException(403, 'duplicate serial number');
     }
