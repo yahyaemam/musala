@@ -1,0 +1,37 @@
+<h1 class="text-center mb-5 mt-5">Gateways</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">serial</th>
+      <th scope="col">ip</th>
+      <th scope="col">name</th>
+      <th scope="col">createdAt</th>
+      <th scope="col">actions</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let gateway of gateways; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        {{ gateway.serial }}
+      </td>
+      <td>{{ gateway.ip }}</td>
+      <td>{{ gateway.name  }}</td>
+      <td>{{ gateway.createdAt | date  }}</td>
+      <td>
+        <div class="action-wrapper">
+          <span (click)="delete(gateway)">
+            <i class="fa fa-trash" ></i>
+          </span>
+          <span class="ml-3">
+            <i class="fa fa-eye" [routerLink]="['/gateway-details', gateway.serial]"></i> </span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="mb-5 mt-5">
+  <a class="btn btn-primary" [routerLink]="['/add-gateway']" >Add gateway</a>
+</div>
