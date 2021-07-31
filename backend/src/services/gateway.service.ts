@@ -2,43 +2,43 @@ import * as bcrypt from 'bcrypt';
 import HttpException from '../exceptions/HttpException';
 import gatewayModel from '../models/gateway.model';
 import { isEmptyObject } from '../utils/util';
-import { Getway } from '../interfaces/getway.interface';
-import { CreateGetwayDto } from '../dtos/getway.dto';
+import { Gateway } from '../interfaces/gateway.interface';
+import { CreateGatewayDto } from '../dtos/gateway.dto';
 import { AddDeviceDto } from '../dtos/device.dto';
 import { Device } from '../interfaces/device.interface';
 import { v4 as uuidv4 } from 'uuid';
 import deviceModel from '../models/device.model';
 
 class GatewayService {
-  public getway = gatewayModel;
+  public gateway = gatewayModel;
   public device = deviceModel;
   public async getAll() {
-    const getways: Getway[] = await this.getway.find();
-    return getways;
+    const gateways: Gateway[] = await this.gateway.find();
+    return gateways;
   }
   public async getone(serial: string) {
-    const getway: Getway = await this.getway.findOne({ serial }).populate('devices');
-    if (!getway) {
-      throw new HttpException(404, 'getway not found');
+    const gateway: Gateway = await this.gateway.findOne({ serial }).populate('devices');
+    if (!gateway) {
+      throw new HttpException(404, 'gateway not found');
     }
-    return getway;
+    return gateway;
   }
-  public async createGetWays(createGetwayDto: CreateGetwayDto) {
-    const getOneGetway: Getway = await this.getway.findOne({ serial: createGetwayDto.serial });
-    if (getOneGetway) {
+  public async createGetWays(createGatewayDto: CreateGatewayDto) {
+    const getOneGateway: Gateway = await this.gateway.findOne({ serial: createGatewayDto.serial });
+    if (getOneGateway) {
       throw new HttpException(403, 'duplicate serial number');
     }
-    const getway: Getway = await this.getway.create(createGetwayDto);
-    return getway;
+    const gateway: Gateway = await this.gateway.create(createGatewayDto);
+    return gateway;
   }
-  public async addDevice(addDeviceDto: AddDeviceDto, getwaySerial: string) {
-    const getOneGetway: Getway = await this.getone(getwaySerial);
-    const device: Device = { uid:uuidv4(), ...addDeviceDto };
-    if (getOneGetway.devices.length === 10) {
-      throw new HttpException(403, `this getway ${getOneGetway.name} exceed maximum device `);
+  public async addDevice(addDeviceDto: AddDeviceDto, gatewaySerial: string) {
+    const getOneGateway: Gateway = await this.getone(gatewaySerial);
+    const device: Device = { ...addDeviceDto, uid:uuidv4() };
+    if (getOneGateway.devices.length === 10) {
+      throw new HttpException(403, `this gateway ${getOneGateway.name} exceed maximum device `);
     }
     const createdDevice: Device = await this.device.create(device);
-    return this.getway.findOneAndUpdate({ serial:getwaySerial }, { devices:[...getOneGetway.devices, createdDevice] });
+    return this.gateway.findOneAndUpdate({ serial:gatewaySerial }, { devices:[...getOneGateway.devices, createdDevice] });
   }
   public async getoneDevice(uid: string) {
     const device: Device = await this.device.findOne({ uid });
@@ -47,19 +47,19 @@ class GatewayService {
     }
     return device;
   }
-  public async deleteGetway(serial: string) {
-    const getOneGetway: Getway = await this.getone(serial);
+  public async deleteGateway(serial: string) {
+    const getOneGateway: Gateway = await this.getone(serial);
 
-    return this.getway.findOneAndDelete({ serial });
+    return this.gateway.findOneAndDelete({ serial });
   }
 
   public async deleteDevice(serial: string, uid: string) {
-    const getOneGetway: Getway = await this.getone(serial);
+    const getOneGateway: Gateway = await this.getone(serial);
     const device: Device = await this.getoneDevice(uid);
-    const filterdGetWayDevices = getOneGetway.devices.filter((deviceItem) => {
+    const filterdGetWayDevices = getOneGateway.devices.filter((deviceItem) => {
       return deviceItem.uid !== uid;
     });
-    const updatedGetway: Getway = await this.getway.findOneAndUpdate({ serial }, { devices:filterdGetWayDevices });
+    const updatedGateway: Gateway = await this.gateway.findOneAndUpdate({ serial }, { devices:filterdGetWayDevices });
 
     return this.device.findOneAndDelete({ uid });
   }

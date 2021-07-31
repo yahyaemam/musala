@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Device, status } from '../models/device.model';
-import { GetWayService } from '../services/getway.service';
+import { GetWayService } from '../services/gateway.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class CreateDeviceComponent implements OnInit {
     try{
     const resp = await this.getWayService.AddDevice(device,serial);
     if (resp){
-      this.router.navigateByUrl(`/getway-details/${serial}`)
+      this.router.navigateByUrl(`/gateway-details/${serial}`)
     }}
     catch(err){
       this.error = err.error.message;

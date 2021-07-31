@@ -7,7 +7,7 @@
 `--build`
 should be used first time, and whenever there are changes applied.
 
-    localhost:4200/getways
+    localhost:4200/gateways
 
 `frontEnd`
 you can find frontend app on this url

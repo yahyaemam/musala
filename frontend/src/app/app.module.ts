@@ -4,19 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
-import { ListGetwaysComponent } from './list-getways/list-getways.component';
+import { ListGatewaysComponent } from './list-gateways/list-gateways.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CreateGetwayComponent } from './create-getway/create-getway.component';
+import { CreateGatewayComponent } from './create-gateway/create-gateway.component';
 import { FormsModule } from '@angular/forms';
-import { GetwayDetailsComponent } from './getway-details/getway-details.component';
+import { GatewayDetailsComponent } from './gateway-details/gateway-details.component';
 import { CreateDeviceComponent } from './create-device/create-device.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListGetwaysComponent,
-    CreateGetwayComponent,
-    GetwayDetailsComponent,
+    ListGatewaysComponent,
+    CreateGatewayComponent,
+    GatewayDetailsComponent,
     CreateDeviceComponent
   ],
   imports: [

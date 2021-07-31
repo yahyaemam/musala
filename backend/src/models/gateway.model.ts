@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { Getway } from '../interfaces/getway.interface';
+import { Gateway } from '../interfaces/gateway.interface';
 import { deviceSchema } from './device.model';
 
 const gatewaySchema = new mongoose.Schema({
@@ -15,6 +15,6 @@ const gatewaySchema = new mongoose.Schema({
 
 });
 
-const gatewayModel = mongoose.model<Getway & mongoose.Document>('Gateway', gatewaySchema);
+const gatewayModel = mongoose.model<Gateway & mongoose.Document>('Gateway', gatewaySchema);
 
 export default gatewayModel;
