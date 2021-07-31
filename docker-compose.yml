@@ -17,3 +17,12 @@ services:
     container_name: nodejs-api
     links:
       - mongo
+  ui-build:
+    build:
+      context: ./
+      dockerfile: Dockerfile-ui
+    ports:
+      - 4200:4200
+    container_name: ui-build
+    links:
+      - nodejs-api   
