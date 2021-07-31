@@ -6,6 +6,7 @@ import { GetwayDetailsComponent } from './getway-details/getway-details.componen
 import { CreateDeviceComponent } from './create-device/create-device.component';
 
 const routes: Routes = [
+  { path: '**', redirectTo: '/getways', pathMatch: 'full' },
   { path: 'getways', component: ListGetwaysComponent },
   { path: 'add-getway', component:   CreateGetwayComponent},
   { path: 'getway-details/:serial', component:   GetwayDetailsComponent},
